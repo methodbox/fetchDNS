@@ -1,12 +1,13 @@
 <html>
   <head>
     <title>FetchDNS</title>
-    <script src="./js/vue.min.js"></script>
     <!-- inlude Google's Material Design Lite -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.green-orange.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.3.0/material.green-orange.min.css" />
     <link rel="stylesheet" href="./styles/styles.css">
-    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <!-- include vuejs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.min.js"></script>
+    <script async src="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.3.0/material.min.js"></script>
     <!-- render correctly for mobile or smaller width -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
@@ -33,7 +34,7 @@
                       </div>
                     </div>
                     <div class="mdl-cell mdl-cell--12-col">
-                      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" v-on:click="getDNS" id="dns-button">Fetch DNS</button>
+                      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" v-on:click.prevent="getDNS" id="dns-button">Fetch DNS</button>
                     </div>
                   </div>
                 </div>
