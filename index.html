@@ -49,7 +49,7 @@
                         <th>TTL</th>
                       </tr>
                     </thead>
-                    <tbody id="dns-table-body">
+                    <tbody id="dns-table-body" v-if='searchComplete'>
                       <tr class="dns-table-element" v-for="record in soaRecs" id="soa-list">
                         <td class="mdl-data-table__cell--non-numeric">
                           <span class="mdl-chip mdl-chip--contact">
