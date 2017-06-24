@@ -9,7 +9,9 @@ const dnsView = new Vue({
     nsRecs: [],
     mxRecs: [],
     txtRecs: [],
-    searchComplete: false
+    searchComplete: false,
+    versionNum: '1.3.2',
+    versionDate: '6.23.2017'
   },
   methods: {
     getDNS: function(domain) { //  fetch method - get our data on-click
