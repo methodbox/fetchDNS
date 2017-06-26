@@ -8,9 +8,13 @@ const dnsView = new Vue({
     aRecs: [],
     nsRecs: [],
     mxRecs: [],
-    txtRecs: []
+    txtRecs: [],
+    searchComplete: false,
+    versionNum: '1.3.2',
+    versionDate: '6.23.2017'
   },
   methods: {
+
     getSearchField: function() {
       let getSearchData = document.getElementById('dns-search-input') //  get our search field value
       let cleanSearchData = getSearchData.value.split('/')
@@ -26,6 +30,8 @@ const dnsView = new Vue({
       dnsView.nsRecs = []
       dnsView.mxRecs = []
       dnsView.txtRecs = []
+    getDNS: function(domain) { //  fetch method - get our data on-click
+      dnsView.clearRecords()
       let allDNS = 'https://dns.google.com/resolve?name=' + domain + '&type=ANY' //  define our query
       fetch(allDNS) //  get all the DNS
         .then((resp) => resp.json())
@@ -33,14 +39,12 @@ const dnsView = new Vue({
           let dns = data.Answer
           const dnsFilter = dns.filter((answer) => {
             switch(answer.type) {
-              case 1:
+              case 1: //  all switch cases = dns record numerical types
                 dnsView.aRecs.push({aRec: {value: answer.data, TTL: answer.TTL}})
                 break
               case 2:
                 dnsView.nsRecs.push({nsRec: {value: answer.data, TTL: answer.TTL}})
                 break
-              case 5:
-                this.getDNS(answer.data)
               case 6:
                 dnsView.soaRecs.push({soaRec: {value: answer.data, TTL: answer.TTL}})
                 break
@@ -52,6 +56,7 @@ const dnsView = new Vue({
                 break
             }
           })
+          dnsView.searchComplete = true
         })
       .catch(function(error) {
         console.log(error) //  log any errors to the console
@@ -59,6 +64,25 @@ const dnsView = new Vue({
     },
     clearField: function () {
       document.getElementById('dns-search-input').value = ''
+    getSearchField: function() {
+      let getSearchData = document.getElementById('dns-search-input') //  get our search field value
+      let cleanSearchData = getSearchData.value.split('/')
+      let searchFilter = cleanSearchData.filter((domain) => {
+        if (domain !== 'https:' && domain !== 'http:' && domain !== '') {
+          dnsView.getDNS(domain)
+        }
+      })
+    },
+    clearField: function () {
+      document.getElementById('dns-search-input').value = ''
+    },
+    clearRecords: function () {
+      dnsView.searchComplete = false
+      dnsView.soaRecs = [] // set all record values to empty to avoid duplicates
+      dnsView.aRecs = []
+      dnsView.nsRecs = []
+      dnsView.mxRecs = []
+      dnsView.txtRecs = []
     }
   }
 })
