@@ -11,14 +11,22 @@ const dnsView = new Vue({
     txtRecs: []
   },
   methods: {
-    getDNS: function(event) { //  fetch method - get our data on-click
+    getSearchField: function() {
+      let getSearchData = document.getElementById('dns-search-input') //  get our search field value
+      let cleanSearchData = getSearchData.value.split('/')
+      let searchFilter = cleanSearchData.filter((domain) => {
+        if (domain !== 'https:' && domain !== 'http:' && domain !== '') {
+          dnsView.getDNS(domain)
+        }
+      })
+    },
+    getDNS: function(domain) { //  fetch method - get our data on-click
       dnsView.soaRecs = [] // set all record values to empty to avoid duplicates
       dnsView.aRecs = []
       dnsView.nsRecs = []
       dnsView.mxRecs = []
-      dnsView.txtRec = []
-      let searchData = document.getElementById('dns-search-input') //  get our search field value
-      let allDNS = 'https://dns.google.com/resolve?name=' + searchData.value + '&type=ANY' //  define our query
+      dnsView.txtRecs = []
+      let allDNS = 'https://dns.google.com/resolve?name=' + domain + '&type=ANY' //  define our query
       fetch(allDNS) //  get all the DNS
         .then((resp) => resp.json())
         .then((data) => {
@@ -31,6 +39,8 @@ const dnsView = new Vue({
               case 2:
                 dnsView.nsRecs.push({nsRec: {value: answer.data, TTL: answer.TTL}})
                 break
+              case 5:
+                this.getDNS(answer.data)
               case 6:
                 dnsView.soaRecs.push({soaRec: {value: answer.data, TTL: answer.TTL}})
                 break
@@ -46,6 +56,9 @@ const dnsView = new Vue({
       .catch(function(error) {
         console.log(error) //  log any errors to the console
       })
+    },
+    clearField: function () {
+      document.getElementById('dns-search-input').value = ''
     }
   }
 })

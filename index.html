@@ -29,12 +29,12 @@
                   <div id="dns-search-form">
                     <div class="mdl-cell mdl-cell--12-col">
                       <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input class="mdl-textfield__input" type="text" id="dns-search-input" v-model="domain">
+                        <input class="mdl-textfield__input" type="text" id="dns-search-input" v-on:click='clearField'>
                         <label class="mdl-textfield__label" for="dns-search-input">Enter a Domain</label>
                       </div>
                     </div>
                     <div class="mdl-cell mdl-cell--12-col">
-                      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" v-on:click.prevent="getDNS" id="dns-button">Fetch DNS</button>
+                      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" v-on:click.prevent="getSearchField" id="dns-button">Fetch DNS</button>
                     </div>
                   </div>
                 </div>
@@ -115,8 +115,8 @@
         <div class="mdl-mini-footer__right-section">
           <ul class="mdl-mini-footer__link-list mdl-layout--spacer">
             <li>Feedback:</li>
-            <li>Chris Shaffer</li>
-            <li><a href="mailto:cshaffer@godaddy.com">cshaffer@godaddy.com</a></li>
+            <li>Someone's Name</li>
+            <li><a href="mailto:email@email.com">email@email.com</a></li>
           </ul>
         </div>
       </footer>
