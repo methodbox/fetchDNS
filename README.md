@@ -1,5 +1,21 @@
-# fetchDNS
+# fetchdns2
 
-A simple tool using Google's HTTPS DNS API for DNS retrieval. Utilizes ES6 fetch & promises for HTTPS requests. Uses Vue.js for view management.
+> DNS tool using fetch and Google DNS API
 
-Feel free to fork!
+## Build Setup
+
+``` bash
+# install dependencies
+npm install
+
+# serve with hot reload at localhost:8080
+npm run dev
+
+# build for production with minification
+npm run build
+
+# build for production and view the bundle analyzer report
+npm run build --report
+```
+
+For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
