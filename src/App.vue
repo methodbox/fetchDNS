@@ -97,6 +97,16 @@
                         <td id="txt-record" class="clear-field wrap-text">{{record.txtRec.value}}</td>
                         <td>{{record.txtRec.TTL}}</td>
                       </tr>
+                      <tr class="dns-table-element" id="no-records-list" v-if="noRecord"><!-- if no records exist show this -->
+                        <td class="mdl-data-table__cell--non-numeric no-records-td">
+                          <span class="mdl-chip mdl-chip--contact no-records-chip">
+                            <span class="mdl-chip__contact mdl-color--white mdl-color-text--black dmx-text no-records-chip-label">ER</span>
+                            <span class="mdl-chip__text no-records-chip-text">No Records</span>
+                          </span>
+                        </td>
+                        <td id="txt-record" class="clear-field wrap-text no-records-value-text">No Records Found (DNS Not Resolved) - Check Name Servers</td>
+                        <td id="no-records-ttl">ERROR</td>
+                      </tr>
                     </tbody>
                   </table>
                 </div>
@@ -134,9 +144,10 @@ export default {
       nsRecs: [],
       mxRecs: [],
       txtRecs: [],
+      noRecord: false,
       searchComplete: false,
-      versionNum: '1.5.2',
-      versionDate: '10.1.2017'
+      versionNum: '1.5.4',
+      versionDate: '10.14.2017'
     }
   },
   methods: {
@@ -160,25 +171,13 @@ export default {
       this.cNameRecs = []
       this.mxRecs = []
       this.txtRecs = []
+      this.noRecord = false
     },
-    fetchDNS: function (domain) { //  fetch method - get our data on-click
+    fetchDNS: function (domain) {
       this.clearRecords()
-      let anyDNS = 'https://dns.google.com/resolve?name=' + domain + '&type=ANY' //  define our query
-      fetch(anyDNS) //  get all the DNS
-        .then((resp) => resp.json())
-        .then((data) => {
-          let dns = data.Answer
-          this.getSpecificDNS(domain)
-        })
-      .catch(function(error) {
-        console.log(error) //  log any errors to the console
-      })
-    },
-    getSpecificDNS: function (domain) {
       let dnsQuery = 'https://dns.google.com/resolve?name=' +  domain + '&type='
       let aQuery = dnsQuery + '1' //  query by specific record type
       let nsQuery = dnsQuery + '2'
-      let cnQuery = dnsQuery + '5'
       let soaQuery = dnsQuery + '6'
       let mxQuery = dnsQuery + '15'
       let txtQuery = dnsQuery + '16'
@@ -194,28 +193,32 @@ export default {
       this.searchComplete = true
     },
     dnsFilter: function (answer) {
-      answer.filter((answer) => { //  filter the record types by value, return the value to our data() along w/TTL value
-        switch(answer.type) {
-          case 1:
-            this.aRecs.push({aRec: {value: answer.data, TTL: answer.TTL}})
-            break
-          case 2:
-            this.nsRecs.push({nsRec: {value: answer.data, TTL: answer.TTL}})
-            break
-          case 5:
-            this.cNameRecs.push({cnRec: {value: answer.data, TTL: answer.TTL}})
-            break
-          case 6:
-            this.soaRecs.push({soaRec: {value: answer.data, TTL: answer.TTL}})
-            break
-          case 15:
-            this.mxRecs.push({mxRec: {value: answer.data.substr(2) + " " + "Priority: " + answer.data.substr(0, 1),TTL: answer.TTL}})
-            break
-          case 16:
-            this.txtRecs.push({txtRec: {value: answer.data, TTL: answer.TTL}})
-            break
-        }
-      })
+      if (answer !== undefined) {
+        answer.filter((answer) => { //  filter the record types by value, return the value to our data() along w/TTL value
+          switch(answer.type) {
+            case 1:
+              this.aRecs.push({aRec: {value: answer.data, TTL: answer.TTL}})
+              break
+            case 2:
+              this.nsRecs.push({nsRec: {value: answer.data, TTL: answer.TTL}})
+              break
+            case 5:
+              this.cNameRecs.push({cnRec: {value: answer.data, TTL: answer.TTL}})
+              break
+            case 6:
+              this.soaRecs.push({soaRec: {value: answer.data, TTL: answer.TTL}})
+              break
+            case 15:
+              this.mxRecs.push({mxRec: {value: answer.data.substr(2) + " " + "Priority: " + answer.data.substr(0, 1),TTL: answer.TTL}})
+              break
+            case 16:
+              this.txtRecs.push({txtRec: {value: answer.data, TTL: answer.TTL}})
+              break
+          }
+        })
+      } else {
+        this.noRecord = true
+      }
     }
   }
 }
@@ -245,6 +248,36 @@ body {
 .mdl-mini-footer {
   padding: 8px 32px;
   min-height: 40px;
+}
+
+.no-records-chip {
+  background-color: red;
+}
+
+.no-records-chip-text {
+  font-size: 28px;
+  color: #fff;
+}
+
+.no-records-chip-label {
+  color: red;
+}
+
+.no-records-value-text {
+  font-size: 24px;
+  font-style: italic;
+  text-align: center;
+  background-color: rgba(0,0,0,.1)
+}
+
+.no-records-td {
+  background-color: #000;
+}
+
+#no-records-ttl {
+  background: #000;
+  font-weight: bolder;
+  color: red;
 }
 
 @media screen and (max-width: 960px) {
