@@ -119,13 +119,6 @@
         <div class="mdl-mini-footer__left-section">
           <div class="mdl-logo">FetchDNS  v{{versionNum}} - rel. {{versionDate}}</div>
         </div>
-        <div class="mdl-mini-footer__right-section">
-          <ul class="mdl-mini-footer__link-list mdl-layout--spacer">
-            <li>Feedback:</li>
-            <li>Redbeard</li>
-            <li><a href="mailto:email@email.com">mmulholland@godaddy.com</a></li>
-          </ul>
-        </div>
       </footer>
     </div>
   </div>
@@ -147,8 +140,8 @@ export default {
       noRecord: false,
       hasRecord: false,
       searchComplete: false,
-      versionNum: '1.5.4',
-      versionDate: '10.14.2017'
+      versionNum: '1.6',
+      versionDate: '01.26.2018'
     }
   },
   methods: {
