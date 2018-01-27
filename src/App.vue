@@ -183,8 +183,11 @@ export default {
           .then((res) => res.json())
           .then((data) => {
             let allDNS = data.Answer
+            console.log(data.Answer)
+            console.log(this.hasRecord)
             if (allDNS !== undefined) {
               this.hasRecord = true
+              this.noRecord = false
               this.dnsFilter(allDNS) // pass each array value to record type filter
             } else if (this.hasRecord === false){
               this.noRecord = true
