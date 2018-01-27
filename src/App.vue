@@ -183,8 +183,6 @@ export default {
           .then((res) => res.json())
           .then((data) => {
             let allDNS = data.Answer
-            console.log(data.Answer)
-            console.log(this.hasRecord)
             if (allDNS !== undefined) {
               this.hasRecord = true
               this.noRecord = false
