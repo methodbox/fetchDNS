@@ -145,6 +145,7 @@ export default {
       mxRecs: [],
       txtRecs: [],
       noRecord: false,
+      hasRecord: false,
       searchComplete: false,
       versionNum: '1.5.4',
       versionDate: '10.14.2017'
@@ -172,6 +173,7 @@ export default {
       this.mxRecs = []
       this.txtRecs = []
       this.noRecord = false
+      this.hasRecord = false
     },
     fetchDNS: function (domain) {
       this.clearRecords()
@@ -182,18 +184,23 @@ export default {
       let mxQuery = dnsQuery + '15'
       let txtQuery = dnsQuery + '16'
       let dnsQueryArray = [aQuery, nsQuery, soaQuery, mxQuery, txtQuery] // array of specific record types
+
       dnsQueryArray.map((dns) => { // map array for multiple queries before filtering
         fetch(dns)
           .then((res) => res.json())
           .then((data) => {
             let allDNS = data.Answer
-            this.dnsFilter(allDNS) // pass each array value to record type filter
+            if (allDNS !== undefined) {
+              this.hasRecord = true
+              this.dnsFilter(allDNS) // pass each array value to record type filter
+            } else if (this.hasRecord === false){
+              this.noRecord = true
+            }
           })
       })
       this.searchComplete = true
     },
     dnsFilter: function (answer) {
-      if (answer !== undefined) {
         answer.filter((answer) => { //  filter the record types by value, return the value to our data() along w/TTL value
           switch(answer.type) {
             case 1:
@@ -216,9 +223,6 @@ export default {
               break
           }
         })
-      } else {
-        this.noRecord = true
-      }
     }
   }
 }
