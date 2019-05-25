@@ -33,10 +33,10 @@ class App extends React.Component<Props, State> {
 	// @ts-ignore
 	_onGetDns = (domain: string) => {
 		let dnsQuery = `https://dns.google.com/resolve?name=${domain}&type=`;
-    /**
-     * @dns
-     * Record types: | 1 = A record | 2 = NS | 6 = SOA | 15 = MX | 16 = TXT
-     */
+		/**
+		 * @dns
+		 * Record types: | 1 = A record | 2 = NS | 6 = SOA | 15 = MX | 16 = TXT
+		 */
 		let dnsQueryArray: Array<string> = [
 			`${dnsQuery}1`,
 			`${dnsQuery}2`,
