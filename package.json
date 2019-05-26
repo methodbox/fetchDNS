@@ -7,6 +7,7 @@
     "@types/node": "12.0.2",
     "@types/react": "16.8.18",
     "@types/react-dom": "16.8.4",
+    "materialize-css": "^1.0.0",
     "node-fetch": "^2.6.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
@@ -35,6 +36,7 @@
     ]
   },
   "devDependencies": {
+    "@types/materialize-css": "^1.0.6",
     "@types/node-fetch": "^2.3.4",
     "prettier": "^1.17.1",
     "prettier-tslint": "^0.4.2",
