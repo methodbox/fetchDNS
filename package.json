@@ -12,7 +12,8 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-scripts": "3.0.1",
-    "typescript": "3.4.5"
+    "typescript": "3.4.5",
+    "validator": "^11.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -38,6 +39,7 @@
   "devDependencies": {
     "@types/materialize-css": "^1.0.6",
     "@types/node-fetch": "^2.3.4",
+    "@types/validator": "^10.11.0",
     "prettier": "^1.17.1",
     "prettier-tslint": "^0.4.2",
     "tslint": "^5.16.0",
