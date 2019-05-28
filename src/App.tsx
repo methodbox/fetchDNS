@@ -3,7 +3,7 @@ import validator from 'validator';
 import fetch, { Response } from 'node-fetch';
 //  Styling imports
 import { updateTextFields } from 'materialize-css';
-import gitLogo from './assets/GitHub-Mark-32px.png';
+import gitLogo from './assets/GitHub-Mark-64px.png';
 import 'materialize-css/dist/css/materialize.min.css';
 import './styles/Dns.css';
 import './styles/App.css';
@@ -148,7 +148,7 @@ export default class FetchDNS extends Component<{}, State> {
             <ul id="nav-mobile" className="right hide-on-med-and-down">
               <li>
                 <a href="https://github.com/methodbox/fetchDNS" className="waves-effect waves-light">
-                  <img src={gitLogo} alt="github logo" />
+                  <img src={gitLogo} alt="github logo" className="git-image" />
                 </a>
               </li>
             </ul>
