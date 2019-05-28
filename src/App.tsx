@@ -18,6 +18,7 @@ export type State = {
   record: Array<object> | any;
   domainInput: string;
   showRecordHeader: boolean;
+  noRecordFound: boolean;
 };
 
 export type Record = {
@@ -39,6 +40,7 @@ export default class FetchDNS extends Component<{}, State> {
     record: [],
     domainInput: '',
     showRecordHeader: false,
+    noRecordFound: false,
   };
 
   componentDidMount() {
@@ -85,9 +87,10 @@ export default class FetchDNS extends Component<{}, State> {
             )
             .then(
               (json: Record): void => {
-                this.setState({ showRecordHeader: true });
                 if (json.Answer !== undefined) {
                   const defaultResponse: Array<object> = [{ default: 'default' }];
+
+                  this.setState({ showRecordHeader: true });
 
                   json.Answer.forEach(
                     (data: Record): void => {
@@ -114,9 +117,13 @@ export default class FetchDNS extends Component<{}, State> {
                           break;
                       }
                     }
-                  );
-                } else {
-                  console.log('No record found.');
+                  ); // prettier-ignore
+                } else if (
+                  /* prettier-ignore */
+                  this.state.typeA1.length + this.state.typeAAAA28.length + this.state.typeMx15.length +
+                    this.state.typeNS2.length + this.state.typeSoa6.length + this.state.typeTxt16.length === 0
+                ) {
+                  this.setState({ showRecordHeader: true, noRecordFound: true });
                 }
               }
             )
@@ -176,99 +183,115 @@ export default class FetchDNS extends Component<{}, State> {
               <table className="responsive-table">
                 {this.state.showRecordHeader ? (
                   <thead>
-                    <th className="chip-td center-align">Record Type</th>
-                    <th className="record-th">Record</th>
-                    <th className="left-align">TTL</th>
+                    <tr>
+                      <th className="chip-td center-align">Record Type</th>
+                      <th className="record-th">Record</th>
+                      <th className="left-align">TTL</th>
+                    </tr>
                   </thead>
                 ) : null}
+                <tbody>
+                  {this.state.typeSoa6.map((record: Record, index: number) => {
+                    return (
+                      <tr key={index} className="collection-item">
+                        <td className="chip-td center-align">
+                          <div className="chip">
+                            <div className="chip-circle red white-text">S</div>
+                            SOA
+                          </div>
+                        </td>
+                        <td className="left td-align">{record.data}</td>
+                        <td className="left-align">{record.TTL}</td>
+                      </tr>
+                    );
+                  })}
 
-                {this.state.typeSoa6.map((record: Record, index: number) => {
-                  return (
-                    <tr key={index} className="collection-item">
+                  {this.state.typeA1.map((record: Record, index: number) => {
+                    return (
+                      <tr key={index} className="collection-item">
+                        <td className="chip-td center-align">
+                          <div className="chip">
+                            <div className="chip-circle blue white-text">A</div>A IPv4
+                          </div>
+                        </td>
+                        <td className="left td-align">{record.data}</td>
+                        <td className="left-align">{record.TTL}</td>
+                      </tr>
+                    );
+                  })}
+
+                  {this.state.typeAAAA28.map((record: Record, index: number) => {
+                    return (
+                      <tr key={index} className="collection-item">
+                        <td className="chip-td center-align">
+                          <div className="chip">
+                            <div className="chip-circle blue white-text">A</div>AAAA IPv6
+                          </div>
+                        </td>
+                        <td className="left td-align">{record.data}</td>
+                        <td className="left-align">{record.TTL}</td>
+                      </tr>
+                    );
+                  })}
+
+                  {this.state.typeNS2.map((record: Record, index: number) => {
+                    return (
+                      <tr key={index} className="collection-item">
+                        <td className="chip-td center-align">
+                          <div className="chip">
+                            <div className="chip-circle green white-text">N</div>
+                            Name Server
+                          </div>
+                        </td>
+                        <td className="left td-align">{record.data}</td>
+                        <td className="left-align">{record.TTL}</td>
+                      </tr>
+                    );
+                  })}
+
+                  {this.state.typeMx15.map((record: Record, index: number) => {
+                    return (
+                      <tr key={index} className="collection-item">
+                        <td className="chip-td center-align">
+                          <div className="chip">
+                            <div className="chip-circle yellow white-text">M</div>
+                            Mail Exchange
+                          </div>
+                        </td>
+                        <td className="left td-align">{record.data}</td>
+                        <td className="left-align">{record.TTL}</td>
+                      </tr>
+                    );
+                  })}
+
+                  {this.state.typeTxt16.map((record: Record, index: number) => {
+                    return (
+                      <tr key={index} className="collection-item">
+                        <td className="chip-td center-align">
+                          <div className="chip">
+                            <div className="chip-circle purple white-text">T</div>
+                            TXT
+                          </div>
+                        </td>
+                        <td className="left td-align">{record.data}</td>
+                        <td className="left-align">{record.TTL}</td>
+                      </tr>
+                    );
+                  })}
+
+                  {this.state.noRecordFound ? (
+                    <tr className="collection-item">
                       <td className="chip-td center-align">
                         <div className="chip">
-                          <div className="chip-circle red white-text">S</div>
-                          SOA
+                          <div className="chip-circle red white-text">X</div>
+                          NO RECORD FOUND
                         </div>
                       </td>
-                      <td className="left td-align">{record.data}</td>
-                      <td className="left-align">{record.TTL}</td>
+                      <td className="left td-align">No DNS entries were returned in this query.</td>
+                      <td className="left-align">0</td>
                     </tr>
-                  );
-                })}
-
-                {this.state.typeA1.map((record: Record, index: number) => {
-                  return (
-                    <tr key={index} className="collection-item">
-                      <td className="chip-td center-align">
-                        <div className="chip">
-                          <div className="chip-circle blue white-text">A</div>A IPv4
-                        </div>
-                      </td>
-                      <td className="left td-align">{record.data}</td>
-                      <td className="left-align">{record.TTL}</td>
-                    </tr>
-                  );
-                })}
-
-                {this.state.typeAAAA28.map((record: Record, index: number) => {
-                  return (
-                    <tr key={index} className="collection-item">
-                      <td className="chip-td center-align">
-                        <div className="chip">
-                          <div className="chip-circle blue white-text">A</div>AAAA IPv6
-                        </div>
-                      </td>
-                      <td className="left td-align">{record.data}</td>
-                      <td className="left-align">{record.TTL}</td>
-                    </tr>
-                  );
-                })}
-
-                {this.state.typeNS2.map((record: Record, index: number) => {
-                  return (
-                    <tr key={index} className="collection-item">
-                      <td className="chip-td center-align">
-                        <div className="chip">
-                          <div className="chip-circle green white-text">N</div>
-                          Name Server
-                        </div>
-                      </td>
-                      <td className="left td-align">{record.data}</td>
-                      <td className="left-align">{record.TTL}</td>
-                    </tr>
-                  );
-                })}
-
-                {this.state.typeMx15.map((record: Record, index: number) => {
-                  return (
-                    <tr key={index} className="collection-item">
-                      <td className="chip-td center-align">
-                        <div className="chip">
-                          <div className="chip-circle yellow white-text">M</div>
-                          Mail Exchange
-                        </div>
-                      </td>
-                      <td className="left td-align">{record.data}</td>
-                      <td className="left-align">{record.TTL}</td>
-                    </tr>
-                  );
-                })}
-
-                {this.state.typeTxt16.map((record: Record, index: number) => {
-                  return (
-                    <tr key={index} className="collection-item">
-                      <td className="chip-td center-align">
-                        <div className="chip">
-                          <div className="chip-circle purple white-text">T</div>
-                          TXT
-                        </div>
-                      </td>
-                      <td className="left td-align">{record.data}</td>
-                      <td className="left-align">{record.TTL}</td>
-                    </tr>
-                  );
-                })}
+                  ) : null}
+                </tbody>
               </table>
             </div>
           </div>
