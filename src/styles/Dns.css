@@ -1,3 +1,16 @@
+/**
+ * Sticky footer
+ */
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
 li {
   list-style: none;
 }
@@ -8,6 +21,39 @@ li {
   box-sizing: inherit;
 }
 
+nav {
+  color: #fff;
+  background-color: #ffffff;
+  width: 50%;
+  height: 80px;
+  line-height: 80px;
+  margin-right: auto;
+  margin-left: auto;
+  border-bottom: 10px solid black;
+  box-shadow: none;
+}
+/*
+ * Git logo
+ */
+nav ul a {
+  height: 60px;
+  border-radius: 50px;
+}
+
+nav ul a:hover {
+  background-color: #7f4fe0;
+  border-radius: 50px;
+}
+
+.btn {
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 1px 0 rgba(0, 0, 0, 0.2);
+}
+
+h1#fetch-logo {
+  margin-top: 0px;
+  font-style: italic;
+  margin-left: 10%;
+}
 #dns-container {
   margin-top: 5%;
   margin-left: auto;
@@ -18,8 +64,107 @@ li {
   top: 20px;
 }
 
+#domain-input {
+  margin-left: auto;
+
+  width: 50%;
+}
+
+.input-field label {
+  color: #5e20d8;
+}
+/* label focus color */
+.input-field input[type='text']:focus + label {
+  color: #000;
+}
+/* label underline focus color */
+.input-field input[type='text']:focus {
+  border-bottom: 1px solid #000;
+  box-shadow: 0 1px 0 0 #000;
+}
+/* valid color */
+.input-field input[type='text'].valid {
+  border-bottom: 1px solid #000;
+  box-shadow: 0 1px 0 0 #000;
+}
+/* invalid color */
+.input-field input[type='text'].invalid {
+  border-bottom: 1px solid #000;
+  box-shadow: 0 1px 0 0 #000;
+}
+/* icon prefix focus color */
+.input-field .prefix.active {
+  color: #000;
+}
+
+input:not([type]):focus:not([readonly]) + label,
+input[type='text']:not(.browser-default):focus:not([readonly]) + label,
+input[type='password']:not(.browser-default):focus:not([readonly]) + label,
+input[type='email']:not(.browser-default):focus:not([readonly]) + label,
+input[type='url']:not(.browser-default):focus:not([readonly]) + label,
+input[type='time']:not(.browser-default):focus:not([readonly]) + label,
+input[type='date']:not(.browser-default):focus:not([readonly]) + label,
+input[type='datetime']:not(.browser-default):focus:not([readonly]) + label,
+input[type='datetime-local']:not(.browser-default):focus:not([readonly]) + label,
+input[type='tel']:not(.browser-default):focus:not([readonly]) + label,
+input[type='number']:not(.browser-default):focus:not([readonly]) + label,
+input[type='search']:not(.browser-default):focus:not([readonly]) + label,
+textarea.materialize-textarea:focus:not([readonly]) + label {
+  color: #5e20d8;
+}
+
+input.valid:not([type]),
+input.valid:not([type]):focus,
+input.valid[type='text']:not(.browser-default),
+input.valid[type='text']:not(.browser-default):focus,
+input.valid[type='password']:not(.browser-default),
+input.valid[type='password']:not(.browser-default):focus,
+input.valid[type='email']:not(.browser-default),
+input.valid[type='email']:not(.browser-default):focus,
+input.valid[type='url']:not(.browser-default),
+input.valid[type='url']:not(.browser-default):focus,
+input.valid[type='time']:not(.browser-default),
+input.valid[type='time']:not(.browser-default):focus,
+input.valid[type='date']:not(.browser-default),
+input.valid[type='date']:not(.browser-default):focus,
+input.valid[type='datetime']:not(.browser-default),
+input.valid[type='datetime']:not(.browser-default):focus,
+input.valid[type='datetime-local']:not(.browser-default),
+input.valid[type='datetime-local']:not(.browser-default):focus,
+input.valid[type='tel']:not(.browser-default),
+input.valid[type='tel']:not(.browser-default):focus,
+input.valid[type='number']:not(.browser-default),
+input.valid[type='number']:not(.browser-default):focus,
+input.valid[type='search']:not(.browser-default),
+input.valid[type='search']:not(.browser-default):focus,
+textarea.materialize-textarea.valid,
+textarea.materialize-textarea.valid:focus,
+.select-wrapper.valid > input.select-dropdown {
+  border-bottom: #9b69ff !important;
+  box-shadow: 0 1px 0 0 #9b69ff;
+}
+
+input:not([type]):focus:not([readonly]),
+input[type='text']:not(.browser-default):focus:not([readonly]),
+input[type='password']:not(.browser-default):focus:not([readonly]),
+input[type='email']:not(.browser-default):focus:not([readonly]),
+input[type='url']:not(.browser-default):focus:not([readonly]),
+input[type='time']:not(.browser-default):focus:not([readonly]),
+input[type='date']:not(.browser-default):focus:not([readonly]),
+input[type='datetime']:not(.browser-default):focus:not([readonly]),
+input[type='datetime-local']:not(.browser-default):focus:not([readonly]),
+input[type='tel']:not(.browser-default):focus:not([readonly]),
+input[type='number']:not(.browser-default):focus:not([readonly]),
+input[type='search']:not(.browser-default):focus:not([readonly]),
+textarea.materialize-textarea:focus:not([readonly]) {
+  border-bottom: #5e20d8 !important;
+  box-shadow: 0 1px 0 0 #5e20d8;
+}
+
 .chip {
   background-color: #efefef;
+  overflow: hidden;
+  width: 132px;
 }
 .chip-circle {
   float: left;
@@ -47,8 +192,22 @@ li {
   background-color: #d8d020;
 }
 
-.chip-circle.purple {
+.chip-circle.purple,
+.btn-purple {
   background-color: #5e20d8;
+}
+
+.btn-purple:hover {
+  background-color: #7f4fe0;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 4px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -1px rgba(0, 0, 0, 0.2);
+}
+
+.btn:focus,
+.btn-large:focus,
+.btn-small:focus,
+.btn-floating:focus,
+.btn-purple:focus {
+  background-color: #4b19ac;
 }
 
 #dns-labels {
@@ -70,8 +229,35 @@ td.td-align {
 
 td.chip-td.center-align {
   padding: 0px;
+  line-height: 0;
 }
 
 div.chip {
   margin: 0px;
+}
+
+@media only screen and (min-width: 601px) {
+  nav,
+  nav .nav-wrapper i,
+  nav a.sidenav-trigger,
+  nav a.sidenav-trigger i {
+    height: 80px;
+    line-height: 80px;
+  }
+}
+
+@media only screen and (max-width: 1400px) {
+  .chip {
+    width: 90px;
+  }
+}
+
+@media only screen and (max-width: 1100px) {
+  .chip {
+    width: 32px;
+  }
+
+  .dns-icon {
+    display: none;
+  }
 }
