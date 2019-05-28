@@ -146,7 +146,7 @@ export default class FetchDNS extends Component<{}, State> {
         <div className="container" id="dns-container">
           <form onSubmit={event => event.preventDefault()}>
             <div className="row">
-              <div className="col s8">
+              <div className="col s7">
                 <div className="input-field" id="domain-input">
                   <input
                     onChange={event => {
@@ -160,7 +160,7 @@ export default class FetchDNS extends Component<{}, State> {
                   <label htmlFor="domain-name">Domain Name</label>
                 </div>
               </div>
-              <div className="col s4">
+              <div className="col s5">
                 <button
                   onClick={() => this._onGetDns(this.state.domainInput)}
                   id="submit-btn"
