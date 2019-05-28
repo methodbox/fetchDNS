@@ -144,6 +144,7 @@ export default class FetchDNS extends Component<{}, State> {
             <h1 className="black-text" id="fetch-logo">
               FETCHDNS
             </h1>
+            <div className="version">v2.0.1</div>
             <ul id="nav-mobile" className="right hide-on-med-and-down">
               <li>
                 <a href="https://github.com/methodbox/fetchDNS" className="waves-effect waves-light">
