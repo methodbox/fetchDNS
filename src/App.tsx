@@ -53,10 +53,13 @@ export default class FetchDNS extends Component<{}, State> {
     if (this.state.domainInput.length <= 1) {
       this.setState({
         typeA1: [],
+        typeAAAA28: [],
         typeMx15: [],
         typeNS2: [],
         typeSoa6: [],
         typeTxt16: [],
+        showRecordHeader: false,
+        noRecordFound: false,
       });
     }
   };
