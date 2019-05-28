@@ -1,52 +1,43 @@
 import React, { Component } from 'react';
-import './App.css';
+import validator from 'validator';
 import fetch, { Response } from 'node-fetch';
+//  Styling imports
 import { updateTextFields } from 'materialize-css';
 import 'materialize-css/dist/css/materialize.min.css';
-import './Dns.css';
-import validator from 'validator';
+import './styles/Dns.css';
+import './styles/App.css';
 
-export type Props = {};
 export type State = {
   typeA1: Array<object>;
+  typeAAAA28: Array<object>;
   typeNS2: Array<object>;
-  typeCname5: Array<object>;
   typeSoa6: Array<object>;
   typeMx15: Array<object>;
   typeTxt16: Array<object>;
   record: Array<object> | any;
   domainInput: string;
+  showRecordHeader: boolean;
 };
-
-export interface DNS extends Response {
-  Answer?: Array<object>;
-  //  fixing a TS bug until it's actually fixed
-  forEach(callbackfn: (value: any, index: number, array: any[]) => void, thisArg?: any): void;
-}
 
 export type Record = {
   Answer?: Array<object>;
+  Authority?: Array<object>;
   type?: number;
   data?: string;
   TTL?: string;
 };
-export interface JSON {
-  Answer?: Array<object>;
-  type?: number;
-  data?: string;
-  TTL?: string;
-}
 
-export default class FetchDNS extends Component<Props, State> {
+export default class FetchDNS extends Component<{}, State> {
   state: State = {
     typeA1: [],
+    typeAAAA28: [],
     typeNS2: [],
-    typeCname5: [],
     typeSoa6: [],
     typeMx15: [],
     typeTxt16: [],
     record: [],
     domainInput: '',
+    showRecordHeader: false,
   };
 
   componentDidMount() {
@@ -55,14 +46,18 @@ export default class FetchDNS extends Component<Props, State> {
 
   _onChangeDomain = (event: string) => {
     this.setState({ domainInput: event });
-    console.log(this.state.domainInput.length)
 
     if (this.state.domainInput.length <= 1) {
       this.setState({
-        typeA1: [], typeCname5: [], typeMx15: [], typeNS2: [], typeSoa6: [], typeTxt16: []
-      })
+        typeA1: [],
+        typeMx15: [],
+        typeNS2: [],
+        typeSoa6: [],
+        typeTxt16: [],
+      });
     }
   };
+
   _onGetDns = (domain: string) => {
     if (validator.isFQDN(domain)) {
       let dnsQuery = `https://dns.google.com/resolve?name=${domain}&type=`;
@@ -73,6 +68,7 @@ export default class FetchDNS extends Component<Props, State> {
       let dnsQueryArray: Array<string> = [
         `${dnsQuery}1`,
         `${dnsQuery}2`,
+        `${dnsQuery}28`,
         `${dnsQuery}6`,
         `${dnsQuery}15`,
         `${dnsQuery}16`,
@@ -82,40 +78,47 @@ export default class FetchDNS extends Component<Props, State> {
         (dns: string): void => {
           fetch(dns)
             .then(
-              (response: Response): Promise<any> => {
+              (response: Response): Promise<Record> => {
                 return response.json();
               }
             )
-            .then((json: Record): void => {
-              if (json.Answer !== undefined) {
-                json.Answer.forEach((data: Record): void => {
-                  switch (data.type) {
-                    case 1:
-                      this.setState({ typeA1: (json.Answer) ? json.Answer : [{ default: 'default' }] });
-                      break;
-                    case 2:
-                      this.setState({ typeNS2: (json.Answer) ? json.Answer : [{ default: 'default' }] });
-                      break;
-                    case 5:
-                      this.setState({ typeCname5: (json.Answer) ? json.Answer : [{ default: 'default' }] });
-                      break;
-                    case 6:
-                      this.setState({ typeSoa6: (json.Answer) ? json.Answer : [{ default: 'default' }] });
-                      break;
-                    case 15:
-                      this.setState({ typeMx15: (json.Answer) ? json.Answer : [{ default: 'default' }] });
-                      break;
-                    case 16:
-                      this.setState({ typeTxt16: (json.Answer) ? json.Answer : [{ default: 'default' }] });
-                      break;
-                  }
-                }
+            .then(
+              (json: Record): void => {
+                this.setState({ showRecordHeader: true });
+                if (json.Answer !== undefined) {
+                  const defaultResponse: Array<object> = [{ default: 'default' }];
 
-                );
-              } else {
-                console.log('No record found.');
+                  json.Answer.forEach(
+                    (data: Record): void => {
+                      let recordState: Array<object> = json.Answer ? json.Answer : defaultResponse;
+
+                      switch (data.type) {
+                        case 1:
+                          this.setState({ typeA1: recordState });
+                          break;
+                        case 2:
+                          this.setState({ typeNS2: recordState });
+                          break;
+                        case 28:
+                          this.setState({ typeAAAA28: recordState });
+                          break;
+                        case 6:
+                          this.setState({ typeSoa6: recordState });
+                          break;
+                        case 15:
+                          this.setState({ typeMx15: recordState });
+                          break;
+                        case 16:
+                          this.setState({ typeTxt16: recordState });
+                          break;
+                      }
+                    }
+                  );
+                } else {
+                  console.log('No record found.');
+                }
               }
-            })
+            )
             .catch(err => console.log(err));
         }
       );
@@ -147,74 +150,110 @@ export default class FetchDNS extends Component<Props, State> {
                 id="submit-btn"
                 className="waves-effect waves-light btn"
               >
-                button
-                <i className="material-icons right">send</i>
+                Fetch DNS<i className="material-icons right">send</i>
               </button>
             </div>
-            <div className="chip">
-              <div className="chip-circle">A</div>
-              Label Name
-            </div>
           </div>
         </form>
         <div className="row">
-          <div className="col s10">
-            <ul className="collection with-header">
-              <li className="collection-header">
-                <ul id="dns-labels" className="right">
-                  <li>left</li>
-                  <li>right</li>
-                  <li>more right</li>
-                </ul>
-              </li>
+          <div className="col s12">
+            <table className="responsive-table">
+              {this.state.showRecordHeader ? (
+                <thead>
+                  <th className="chip-td center-align">Test</th>
+                  <th>Test</th>
+                  <th className="left-align">Test</th>
+                </thead>
+              ) : null}
+
+              {this.state.typeSoa6.map((record: Record, index: number) => {
+                return (
+                  <tr key={index} className="collection-item">
+                    <td className="chip-td center-align">
+                      <div className="chip">
+                        <div className="chip-circle red white-text">S</div>
+                        SOA
+                      </div>
+                    </td>
+                    <td className="left td-align">{record.data}</td>
+                    <td className="left-align">{record.TTL}</td>
+                  </tr>
+                );
+              })}
+
               {this.state.typeA1.map((record: Record, index: number) => {
                 return (
-                  <li key={index} className="collection-item">
-                    Record: {record.data} TTL: {record.TTL}
-                  </li>
+                  <tr key={index} className="collection-item">
+                    <td className="chip-td center-align">
+                      <div className="chip">
+                        <div className="chip-circle blue white-text">A</div>A IPv4
+                      </div>
+                    </td>
+                    <td className="left td-align">{record.data}</td>
+                    <td className="left-align">{record.TTL}</td>
+                  </tr>
                 );
               })}
 
-              {this.state.typeCname5.map((record: Record, index: number) => {
+              {this.state.typeAAAA28.map((record: Record, index: number) => {
                 return (
-                  <li key={index} className="collection-item">
-                    Record: {record.data} TTL: {record.TTL}
-                  </li>
-                );
-              })}
-
-              {this.state.typeMx15.map((record: Record, index: number) => {
-                return (
-                  <li key={index} className="collection-item">
-                    Record: {record.data} TTL: {record.TTL}
-                  </li>
+                  <tr key={index} className="collection-item">
+                    <td className="chip-td center-align">
+                      <div className="chip">
+                        <div className="chip-circle blue white-text">A</div>AAAA IPv6
+                      </div>
+                    </td>
+                    <td className="left td-align">{record.data}</td>
+                    <td className="left-align">{record.TTL}</td>
+                  </tr>
                 );
               })}
 
               {this.state.typeNS2.map((record: Record, index: number) => {
                 return (
-                  <li key={index} className="collection-item">
-                    Record: {record.data} TTL: {record.TTL}
-                  </li>
+                  <tr key={index} className="collection-item">
+                    <td className="chip-td center-align">
+                      <div className="chip">
+                        <div className="chip-circle green white-text">N</div>
+                        Name Server
+                      </div>
+                    </td>
+                    <td className="left td-align">{record.data}</td>
+                    <td className="left-align">{record.TTL}</td>
+                  </tr>
                 );
               })}
 
-              {this.state.typeSoa6.map((record: Record, index: number) => {
+              {this.state.typeMx15.map((record: Record, index: number) => {
                 return (
-                  <li key={index} className="collection-item">
-                    Record: {record.data} TTL: {record.TTL}
-                  </li>
+                  <tr key={index} className="collection-item">
+                    <td className="chip-td center-align">
+                      <div className="chip">
+                        <div className="chip-circle yellow white-text">M</div>
+                        Mail Exchange
+                      </div>
+                    </td>
+                    <td className="left td-align">{record.data}</td>
+                    <td className="left-align">{record.TTL}</td>
+                  </tr>
                 );
               })}
 
               {this.state.typeTxt16.map((record: Record, index: number) => {
                 return (
-                  <li key={index} className="collection-item">
-                    Record: {record.data} TTL: {record.TTL}
-                  </li>
+                  <tr key={index} className="collection-item">
+                    <td className="chip-td center-align">
+                      <div className="chip">
+                        <div className="chip-circle purple white-text">T</div>
+                        TXT
+                      </div>
+                    </td>
+                    <td className="left td-align">{record.data}</td>
+                    <td className="left-align">{record.TTL}</td>
+                  </tr>
                 );
               })}
-            </ul>
+            </table>
           </div>
         </div>
       </div>
