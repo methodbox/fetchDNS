@@ -47,6 +47,18 @@ export default class FetchDNS extends Component<{}, State> {
     updateTextFields();
   }
 
+  /**
+   * Fixes a bug with garbage collection of input data elements in MaterializeCSS
+   * See: https://github.com/Dogfalo/materialize/issues/6376
+   * @garbage
+   */
+
+  _garbageCollection = (): null => {
+    const garbage = document.querySelectorAll('[data-dashlane_trigger_mutation="true"]');
+    if (garbage !== null) garbage.forEach(junk => junk.remove());
+    return null;
+  };
+
   _onChangeDomain = (event: string) => {
     this.setState({ domainInput: event });
 
@@ -62,6 +74,8 @@ export default class FetchDNS extends Component<{}, State> {
         noRecordFound: false,
       });
     }
+
+    this._garbageCollection();
   };
 
   _onGetDns = (domain: string) => {

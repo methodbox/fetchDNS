@@ -2,7 +2,7 @@
 
 ### A simple DNS tool built using ES6 node-fetch, React and Google's HTTPS DNS API
 
-### Now with **TYPESCRIPT!**
+### Now with TYPESCRIPT!
 
 #### Host it on Your Own
 

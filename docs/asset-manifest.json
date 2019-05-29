@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/fetchDNS/static/css/main.7bf25175.chunk.css",
-    "main.js": "/fetchDNS/static/js/main.4860e4bc.chunk.js",
-    "main.js.map": "/fetchDNS/static/js/main.4860e4bc.chunk.js.map",
+    "main.js": "/fetchDNS/static/js/main.417cfe62.chunk.js",
+    "main.js.map": "/fetchDNS/static/js/main.417cfe62.chunk.js.map",
     "runtime~main.js": "/fetchDNS/static/js/runtime~main.feb1ae22.js",
     "runtime~main.js.map": "/fetchDNS/static/js/runtime~main.feb1ae22.js.map",
     "static/css/2.ae9e8b99.chunk.css": "/fetchDNS/static/css/2.ae9e8b99.chunk.css",
     "static/js/2.54dfc217.chunk.js": "/fetchDNS/static/js/2.54dfc217.chunk.js",
     "static/js/2.54dfc217.chunk.js.map": "/fetchDNS/static/js/2.54dfc217.chunk.js.map",
     "index.html": "/fetchDNS/index.html",
-    "precache-manifest.cae87ce7b20d7df17abd5c17085cad79.js": "/fetchDNS/precache-manifest.cae87ce7b20d7df17abd5c17085cad79.js",
+    "precache-manifest.8b2211773d8bdf0572463f7cdfb516a6.js": "/fetchDNS/precache-manifest.8b2211773d8bdf0572463f7cdfb516a6.js",
     "service-worker.js": "/fetchDNS/service-worker.js",
     "static/css/2.ae9e8b99.chunk.css.map": "/fetchDNS/static/css/2.ae9e8b99.chunk.css.map",
     "static/css/main.7bf25175.chunk.css.map": "/fetchDNS/static/css/main.7bf25175.chunk.css.map"
