@@ -6,7 +6,7 @@
 
 #### Host it on Your Own
 
-You can host this whereever you want if you don't want to the totally awesome free version right here on GitHub, or you
+You can host this where ever you want if you don't want use to the totally awesome free version right here on GitHub, or you
 just wanna hack away at it and make it your own.
 
 ##### Clone
@@ -51,7 +51,8 @@ npm install
 ##### Build the Static Site
 
 Now you need to create a build to run on your server. This will create the `build` directory in your `fetchDNS` directory.
-This folder is the root of your site. Dump these files on a server and presto! Your own DNS page (which I made, but that's cool).
+This folder is the root of your site. Dump the files from the `build` directory on a server and presto! Your own DNS page
+(which I made, but that's cool).
 
 ```bash
 cd fetchDNS
