@@ -47,7 +47,7 @@ export default class FetchDNS extends Component<{}, State> {
     updateTextFields();
   }
 
-    _onChangeDomain = (event: string) => {
+  _onChangeDomain = (event: string) => {
     this.setState({ domainInput: event });
 
     if (this.state.domainInput.length <= 1) {
