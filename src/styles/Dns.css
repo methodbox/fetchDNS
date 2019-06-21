@@ -186,7 +186,6 @@ textarea.materialize-textarea:focus:not([readonly]) {
   height: 32px;
   width: 32px;
   border-radius: 50%;
-  background-color: red;
   text-align: center;
 }
 
@@ -273,5 +272,37 @@ div.chip {
 
   .dns-icon {
     display: none;
+  }
+}
+
+@media only screen and (max-width: 375px) {
+  td.td-align {
+    line-height: 2;
+    word-break: break-word;
+    width: 240px;
+  }
+
+  #dns-container {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+
+  #fetch-logo {
+    font-size: 30px;
+  }
+
+  a.waves-effect.waves-light.git-link {
+    right: -60px;
+  }
+  nav {
+    color: #fff;
+    background-color: #ffffff;
+    width: 50%;
+    height: 50px;
+    line-height: 1;
+    margin-right: auto;
+    margin-left: auto;
+    border-bottom: 10px solid black;
+    box-shadow: none;
   }
 }

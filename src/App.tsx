@@ -144,10 +144,10 @@ export default class FetchDNS extends Component<{}, State> {
             <h1 className="black-text" id="fetch-logo">
               FETCHDNS
             </h1>
-            <div className="version">v2.0.1</div>
-            <ul id="nav-mobile" className="right hide-on-med-and-down">
+            <div className="version hide-on-med-and-down">v2.0.1</div>
+            <ul id="nav-mobile" className="right">
               <li>
-                <a href="https://github.com/methodbox/fetchDNS" className="waves-effect waves-light">
+                <a href="https://github.com/methodbox/fetchDNS" className="git-link waves-effect waves-light">
                   <img src={gitLogo} alt="github logo" className="git-image" />
                 </a>
               </li>
@@ -183,8 +183,8 @@ export default class FetchDNS extends Component<{}, State> {
             </div>
           </form>
           <div className="row">
-            <div className="col s12">
-              <table className="responsive-table">
+            <div className="col s6 m10 l12">
+              <table>
                 {this.state.showRecordHeader ? (
                   <thead>
                     <tr>
