@@ -144,10 +144,10 @@ export default class FetchDNS extends Component<{}, State> {
             <h1 className="black-text" id="fetch-logo">
               FETCHDNS
             </h1>
-            <div className="version">v2.0.1</div>
-            <ul id="nav-mobile" className="right hide-on-med-and-down">
+            <div className="version hide-on-med-and-down">v2.0.1</div>
+            <ul id="nav-mobile" className="right">
               <li>
-                <a href="https://github.com/methodbox/fetchDNS" className="waves-effect waves-light">
+                <a href="https://github.com/methodbox/fetchDNS" className="git-link waves-effect waves-light">
                   <img src={gitLogo} alt="github logo" className="git-image" />
                 </a>
               </li>
@@ -157,7 +157,7 @@ export default class FetchDNS extends Component<{}, State> {
         <div className="container" id="dns-container">
           <form onSubmit={event => event.preventDefault()}>
             <div className="row">
-              <div className="col s7">
+              <div className="col s10 offset-s1 m6 l4 offset-m3 offset-l4">
                 <div className="input-field" id="domain-input">
                   <input
                     onChange={event => {
@@ -171,7 +171,18 @@ export default class FetchDNS extends Component<{}, State> {
                   <label htmlFor="domain-name">Domain Name</label>
                 </div>
               </div>
-              <div className="col s5">
+              <div className="col s2 hide-on-med-and-down">
+                <button
+                  onClick={() => this._onGetDns(this.state.domainInput)}
+                  id="submit-btn"
+                  className="waves-effect waves-light btn btn-purple"
+                >
+                  Fetch DNS<i className="material-icons right dns-icon">dns</i>
+                </button>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col s6 offset-s4 m3 offset-m5 hide-on-large-only">
                 <button
                   onClick={() => this._onGetDns(this.state.domainInput)}
                   id="submit-btn"
@@ -183,8 +194,8 @@ export default class FetchDNS extends Component<{}, State> {
             </div>
           </form>
           <div className="row">
-            <div className="col s12">
-              <table className="responsive-table">
+            <div className="col s6 m10 l12">
+              <table>
                 {this.state.showRecordHeader ? (
                   <thead>
                     <tr>
