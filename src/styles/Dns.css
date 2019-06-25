@@ -68,12 +68,6 @@ h1#fetch-logo {
   top: 20px;
 }
 
-#domain-input {
-  margin-left: auto;
-
-  width: 50%;
-}
-
 .version {
   color: crimson;
   display: inline;
@@ -275,34 +269,49 @@ div.chip {
   }
 }
 
+@media only screen and (max-width: 800px) {
+  h1#fetch-logo {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    padding-bottom: 0px;
+    margin-left: 5%;
+  }
+
+  nav {
+    height: 60px;
+    border-bottom: 5px solid black;
+  }
+
+  a.git-link {
+    top: -20px;
+  }
+}
+
 @media only screen and (max-width: 375px) {
   td.td-align {
     line-height: 2;
     word-break: break-word;
     width: 240px;
   }
-
+  .input-field {
+    width: 114%;
+  }
   #dns-container {
     margin-left: 0px;
     margin-right: 0px;
   }
 
-  #fetch-logo {
-    font-size: 30px;
+  h1#fetch-logo {
+    font-size: 2.4rem;
   }
 
-  a.waves-effect.waves-light.git-link {
-    right: -60px;
-  }
   nav {
-    color: #fff;
-    background-color: #ffffff;
-    width: 50%;
     height: 50px;
-    line-height: 1;
-    margin-right: auto;
-    margin-left: auto;
-    border-bottom: 10px solid black;
-    box-shadow: none;
+    border-bottom: 5px solid black;
+  }
+
+  a.git-link {
+    top: -20px;
+    right: -10px;
   }
 }
