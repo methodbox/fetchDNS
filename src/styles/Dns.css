@@ -269,7 +269,19 @@ div.chip {
   }
 }
 
+@media only screen and (max-width: 1024px) {
+  button#submit-btn {
+    top: 4px;
+  }
+}
+
 @media only screen and (max-width: 800px) {
+  td.td-align {
+    line-height: 2;
+    word-break: break-word;
+    width: 500px;
+  }
+
   h1#fetch-logo {
     font-size: 3rem;
     margin-bottom: 20px;
@@ -287,6 +299,36 @@ div.chip {
   }
 }
 
+@media only screen and (max-width: 420px) {
+  td.td-align {
+    line-height: 2;
+    word-break: break-word;
+    width: 260px;
+  }
+
+  h1#fetch-logo {
+    font-size: 2.7rem;
+  }
+
+  nav {
+    height: 50px;
+    border-bottom: 5px solid black;
+  }
+
+  a.git-link {
+    top: -26px;
+    right: -10px;
+  }
+
+  #dns-container {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+
+  .input-field {
+    width: 114%;
+  }
+}
 @media only screen and (max-width: 375px) {
   td.td-align {
     line-height: 2;
@@ -316,11 +358,40 @@ div.chip {
   }
 }
 
+@media only screen and (max-width: 360px) {
+  td.td-align {
+    line-height: 2;
+    word-break: break-word;
+    width: 230px;
+  }
+  .input-field {
+    width: 114%;
+  }
+  #dns-container {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+
+  h1#fetch-logo {
+    font-size: 2.4rem;
+  }
+
+  nav {
+    height: 50px;
+    border-bottom: 5px solid black;
+  }
+
+  a.git-link {
+    top: -20px;
+    right: -10px;
+  }
+}
+
 @media only screen and (max-width: 320px) {
   td.td-align {
     line-height: 2;
     word-break: break-word;
-    width: 240px;
+    width: 190px;
   }
   .input-field {
     width: 114%;
@@ -335,12 +406,12 @@ div.chip {
   }
 
   nav {
-    height: 50px;
+    height: 40px;
     border-bottom: 5px solid black;
   }
 
   a.git-link {
-    top: -20px;
+    top: -30px;
     right: -10px;
   }
 }
