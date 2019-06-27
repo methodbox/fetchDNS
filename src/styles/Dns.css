@@ -148,8 +148,8 @@ input.valid[type='search']:not(.browser-default):focus,
 textarea.materialize-textarea.valid,
 textarea.materialize-textarea.valid:focus,
 .select-wrapper.valid > input.select-dropdown {
-  border-bottom: #9b69ff !important;
-  box-shadow: 0 1px 0 0 #9b69ff;
+  border-bottom: 1px solid #9b69ff !important;
+  box-shadow: 0 1px 0 0 #9b69ff !important;
 }
 
 input:not([type]):focus:not([readonly]),
@@ -165,8 +165,8 @@ input[type='tel']:not(.browser-default):focus:not([readonly]),
 input[type='number']:not(.browser-default):focus:not([readonly]),
 input[type='search']:not(.browser-default):focus:not([readonly]),
 textarea.materialize-textarea:focus:not([readonly]) {
-  border-bottom: #5e20d8 !important;
-  box-shadow: 0 1px 0 0 #5e20d8;
+  border-bottom: 1px solid #5e20d8 !important;
+  box-shadow: 0 1px 0 0 #5e20d8 !important;
 }
 
 .chip {
