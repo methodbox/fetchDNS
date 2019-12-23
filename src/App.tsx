@@ -3,12 +3,13 @@ import validator from 'validator';
 import fetch, { Response } from 'node-fetch';
 //  Styling imports
 import { updateTextFields } from 'materialize-css';
-import gitLogo from './assets/GitHub-Mark-64px.png';
 import 'materialize-css/dist/css/materialize.min.css';
 import './styles/Dns.css';
 import './styles/App.css';
 import RecordHeader from './components/RecordHeader';
 import DnsRecord from './components/DnsRecord';
+
+const gitLogo = require('./assets/GitHub-Mark-64px.png');
 
 export type State = {
   typeA1: Array<object>;
@@ -82,22 +83,20 @@ export default class FetchDNS extends Component<{}, State> {
         `${dnsQuery}16`,
       ];
 
-      dnsQueryArray.forEach(
-        (dns: string): void => {
-          fetch(dns)
-            .then(
-              (response: Response): Promise<Record> => {
-                return response.json();
-              }
-            )
-            .then(
-              (json: Record): void => {
-                if (json.Answer !== undefined) {
-                  const defaultResponse: Array<object> = [{ default: 'default' }];
+      dnsQueryArray.forEach((dns: string): void => {
+        fetch(dns)
+          .then(
+            (response: Response): Promise<Record> => {
+              return response.json();
+            }
+          )
+          .then((json: Record): void => {
+            if (json.Answer !== undefined) {
+              const defaultResponse: Array<object> = [{ default: 'default' }];
 
-                  this.setState({ showRecordHeader: true });
+              this.setState({ showRecordHeader: true });
 
-                  json.Answer.forEach(
+              json.Answer.forEach(
                     (data: Record): void => {
                       let recordState: Array<object> = json.Answer ? json.Answer : defaultResponse;
 
@@ -123,18 +122,16 @@ export default class FetchDNS extends Component<{}, State> {
                       }
                     }
                   ); // prettier-ignore
-                } else if (
-                  /* prettier-ignore */
-                  this.state.typeA1.length + this.state.typeAAAA28.length + this.state.typeMx15.length +
+            } else if (
+              /* prettier-ignore */
+              this.state.typeA1.length + this.state.typeAAAA28.length + this.state.typeMx15.length +
                     this.state.typeNS2.length + this.state.typeSoa6.length + this.state.typeTxt16.length === 0
-                ) {
-                  this.setState({ showRecordHeader: true, noRecordFound: true });
-                }
-              }
-            )
-            .catch(err => console.log(err));
-        }
-      );
+            ) {
+              this.setState({ showRecordHeader: true, noRecordFound: true });
+            }
+          })
+          .catch(err => console.log(err));
+      });
     }
   };
 
