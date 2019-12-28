@@ -1,0 +1,49 @@
+{
+  "name": "fetch-dns",
+  "version": "2.0.1",
+  "private": true,
+  "homepage": "https://methodbox.github.io/fetchDNS",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "dependencies": {
+    "materialize-css": "^1.0.0",
+    "node-fetch": "^2.6.0",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-scripts": "^3.3.0",
+    "validator": "^12.1.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.24",
+    "@types/materialize-css": "^1.0.7",
+    "@types/node": "^12.12.21",
+    "@types/node-fetch": "^2.5.4",
+    "@types/react": "^16.9.17",
+    "@types/react-dom": "^16.9.4",
+    "@types/validator": "^12.0.1",
+    "prettier": "^1.19.1",
+    "prettier-tslint": "^0.4.2",
+    "tslint": "^5.20.1",
+    "typescript": "^3.7.4",
+    "typescript-tslint-plugin": "^0.5.5"
+  }
+}

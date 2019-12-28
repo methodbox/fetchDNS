@@ -18,7 +18,6 @@ const DnsRecord = (props: Props) => {
         </div>
       </td>
       <td className="left td-align">{props.dnsData}</td>
-      <td className="left-align">{props.TTL}</td>
     </tr>
   );
 };
