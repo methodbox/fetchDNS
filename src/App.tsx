@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import validator from 'validator';
-import fetch, { Response } from 'node-fetch';
-//  Styling imports
+/** @styles */
 import { updateTextFields } from 'materialize-css';
 import 'materialize-css/dist/css/materialize.min.css';
 import './styles/Dns.css';
 import './styles/App.css';
+/** @components */
+import Nav from './components/Nav';
 import RecordHeader from './components/RecordHeader';
 import DnsRecord from './components/DnsRecord';
-
-const gitLogo = require('./assets/GitHub-Mark-64px.png');
+import SearchForm from './components/SearchForm';
 
 export type State = {
   typeA1: Array<object>;
@@ -137,61 +137,15 @@ export default class FetchDNS extends Component<{}, State> {
 
   render() {
     return (
-      <div>
-        <nav>
-          <div className="nav-wrapper">
-            <h1 className="black-text" id="fetch-logo">
-              FETCHDNS
-            </h1>
-            <div className="version hide-on-med-and-down">v2.0.1</div>
-            <ul id="nav-mobile" className="right">
-              <li>
-                <a href="https://github.com/methodbox/fetchDNS" className="git-link waves-effect waves-light">
-                  <img src={gitLogo} alt="github logo" className="git-image" />
-                </a>
-              </li>
-            </ul>
-          </div>
-        </nav>
+      <>
+        <Nav />
         <div className="container" id="dns-container">
-          <form onSubmit={event => event.preventDefault()}>
-            <div className="row">
-              <div className="col s10 offset-s1 m6 l4 offset-m3 offset-l4">
-                <div className="input-field" id="domain-input">
-                  <input
-                    onChange={event => {
-                      this._onChangeDomain(event.target.value);
-                    }}
-                    id="domain-name"
-                    type="text"
-                    name="domain-name"
-                    className="validate"
-                  />
-                  <label htmlFor="domain-name">Domain Name</label>
-                </div>
-              </div>
-              <div className="col s2 hide-on-med-and-down">
-                <button
-                  onClick={() => this._onGetDns(this.state.domainInput)}
-                  id="submit-btn"
-                  className="waves-effect waves-light btn btn-purple"
-                >
-                  Fetch DNS<i className="material-icons right dns-icon">dns</i>
-                </button>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col s6 offset-s4 m3 offset-m5 hide-on-large-only">
-                <button
-                  onClick={() => this._onGetDns(this.state.domainInput)}
-                  id="submit-btn"
-                  className="waves-effect waves-light btn btn-purple"
-                >
-                  Fetch DNS<i className="material-icons right dns-icon">dns</i>
-                </button>
-              </div>
-            </div>
-          </form>
+          <SearchForm
+            onClickSubmit={() => this._onGetDns(this.state.domainInput)}
+            onChangeInput={event => {
+              this._onChangeDomain(event.target.value);
+            }}
+          />
           <div className="row">
             <div className="col s6 m10 l12">
               <table>
@@ -290,7 +244,7 @@ export default class FetchDNS extends Component<{}, State> {
             </div>
           </div>
         </div>
-      </div>
+      </>
     );
   }
 }

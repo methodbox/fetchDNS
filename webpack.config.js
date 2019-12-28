@@ -24,12 +24,17 @@ const config = {
         exclude: /node_modules/,
       },
       {
+        test: /\.svg$/,
+        use: 'file-loader',
+      },
+      {
         test: /\.png$/,
         use: [
           {
             loader: 'url-loader',
             options: {
               mimetype: 'image/png',
+              esModule: false,
             },
           },
         ],
