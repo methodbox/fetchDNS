@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import validator from 'validator';
 /** @styles */
-import { updateTextFields } from 'materialize-css';
-import 'materialize-css/dist/css/materialize.min.css';
+import './libs/materialize.min.css';
 import './styles/Dns.css';
 import './styles/App.css';
 /** @components */
@@ -47,7 +46,19 @@ export default class FetchDNS extends Component<{}, State> {
   };
 
   componentDidMount() {
-    updateTextFields();
+    this._onInputFocusChange();
+  }
+
+  _onInputFocusChange() {
+    let input: any = document.querySelector('#domain-name');
+
+    input.addEventListener('focus', () => {
+      input!.nextElementSibling!.className = 'active';
+    });
+
+    input?.addEventListener('blur', () => {
+      if (input.value.length === 0) input?.nextElementSibling?.classList.remove('active');
+    });
   }
 
   _onChangeDomain = (event: string) => {
