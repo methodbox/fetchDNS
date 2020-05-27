@@ -1,6 +1,8 @@
 import * as React from 'react';
-
-const RecordHeader = () => {
+/**
+ * returns a stylized stateless React table header component
+ */
+const RecordHeader = (): JSX.Element => {
   return (
     <thead>
       <tr>

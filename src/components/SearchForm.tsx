@@ -4,7 +4,8 @@ interface Props {
   onChangeInput: (domainInputValue: ChangeEvent<HTMLInputElement>) => void;
   onClickSubmit: () => void;
 }
-export default function SearchForm(props: Props) {
+
+export default function SearchForm(props: Props): JSX.Element {
   return (
     <form onSubmit={event => event.preventDefault()}>
       <div className="row">

@@ -77,7 +77,10 @@ export default class FetchDNS extends Component<{}, State> {
       });
     }
   };
-
+  /**
+   * @method
+   * @function
+   */
   _onGetDns = (domain: string) => {
     if (validator.isFQDN(domain)) {
       let dnsQuery = `https://dns.google.com/resolve?name=${domain}&type=`;
