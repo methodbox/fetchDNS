@@ -8,7 +8,7 @@ export default function Nav() {
         <h1 className="black-text" id="fetch-logo">
           FETCHDNS
         </h1>
-        <div className="version hide-on-med-and-down">v2.2</div>
+        <div className="version hide-on-med-and-down">v2.2.4</div>
         <ul id="nav-mobile" className="right">
           <li>
             <a href="https://github.com/methodbox/fetchDNS" className="git-link waves-effect waves-light">
